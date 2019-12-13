@@ -1,0 +1,14 @@
+<div style="text-align:center">
+  <h1 style="font-family: 'Lato', sans-serif;">
+    Welcome!
+  </h1>
+
+<button (click)="getFontsList()">show</button>
+  <input type="text" [(ngModel)]="fontTitle">
+  <button (click)="addTitle()">add</button>
+  <ul *ngFor="let font of fonts">
+    <li>
+      {{font.title}}
+    </li>
+  </ul>
+<router-outlet></router-outlet>
