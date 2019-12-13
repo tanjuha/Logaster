@@ -5,9 +5,20 @@
   (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp($event)"></canvas>
   <br/>
   <button (click)="clear()">clear</button>
-  <button (click)="save()">save</button>
+  <button (click)="addLogo()">save</button>
 
   <br/>
   <img  #idimg [src]="img">
   <br/>
-  <span>{{img}}</span> 
+
+  <button (click)='showLogos()'>show all logos</button>
+
+  <ul *ngFor="let logo of logos">
+     <li>
+          <img [src]="logo.imgLogo" alt="name"> 
+         <span>{{logo.text}}</span>
+     </li>
+     
+  </ul> 
+
+ 
