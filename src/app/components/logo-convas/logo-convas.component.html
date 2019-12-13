@@ -1,3 +1,13 @@
-<p>
-  logo-convas works!
-</p>
+
+<input [(ngModel)]="idLogoText" type="text" placeholder="Enter text ...">
+<button (click)="wtiteText()">edit text</button>
+   <canvas #idLogo width="300" height="150" (mousedown)="onMouseDown($event)"
+  (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp($event)"></canvas>
+  <br/>
+  <button (click)="clear()">clear</button>
+  <button (click)="save()">save</button>
+
+  <br/>
+  <img  #idimg [src]="img">
+  <br/>
+  <span>{{img}}</span> 
