@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 export class LogoConvasComponent implements OnInit {
   @ViewChild('idLogo') idLogo: ElementRef;
   @ViewChild('idimg') idimg: ElementRef;
+  @ViewChild('idFontSelect') idFontSelect: ElementRef;
 
   fonts: Font[] = [];
   fontTitle = '';
@@ -29,7 +30,10 @@ export class LogoConvasComponent implements OnInit {
   idLogoText: string;
   logos: Logo[] = [];
 
-  constructor(private logoService: LogosService, private fontsService: FontsService) {}
+  constructor(
+    private logoService: LogosService,
+    private fontsService: FontsService
+  ) {}
 
   ngOnInit() {
     this.sub = this.fontsService.getFontsList().subscribe(response => {
@@ -38,7 +42,7 @@ export class LogoConvasComponent implements OnInit {
 
     // create tags <link> with fonts
     setTimeout(() => {
-      if (this.fonts.length !== 0 ) {
+      if (this.fonts.length !== 0) {
         for (let i = 0; i < this.fonts.length; i++) {
           this.arrayFonts.push(this.fonts[i].title);
         }
@@ -85,7 +89,6 @@ export class LogoConvasComponent implements OnInit {
       });
   }
 
-
   // canvas
   wtiteText() {
     this.context.clearRect(0, 0, 150, 150);
@@ -93,9 +96,11 @@ export class LogoConvasComponent implements OnInit {
     if (this.idLogoText === undefined) {
       this.idLogoText = '';
     }
+    this.context.font = `30px ${this.idFontSelect}`;
     this.context.fillText(this.idLogoText, 50, 100);
 
     console.log('own text = ', this.text, 'input text =', this.idLogoText);
+    console.log('idFontSelect', this.idFontSelect);
   }
 
   onMouseUp(e) {
@@ -139,11 +144,10 @@ export class LogoConvasComponent implements OnInit {
   }
 
   showLogos() {
-    this.logoService.showLogos()
-    .subscribe(logo => {
+    this.logoService.showLogos().subscribe(logo => {
       this.logos = logo;
       console.log('logo', logo);
       return logo;
-    })
+    });
   }
 }
