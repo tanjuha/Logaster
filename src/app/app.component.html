@@ -1,15 +1,19 @@
-<div style="text-align:center">
+<div class="container">
+  <app-logo-convas></app-logo-convas>
+</div>
+<!-- <div class="col-4 input-group">
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="fontTitle"
+      placeholder="Enter fonts name..."
+      aria-label="Recipient's username"
+      aria-describedby="basic-addon2"
+    />
+    <div class="input-group-append">
+      <button class="btn btn-primary" (click)="addTitle()">add</button>
+      <button class="btn btn-danger" (click)="getFontsList()">show</button>
+    </div>
+  </div> -->
 
-  <h1 style="font-family: 'Comfortaa', sans-serif;">
-      Welcome!
-    </h1>
-<app-logo-convas></app-logo-convas>
-<button class="btn btn-primary" (click)="getFontsList()">show</button>
-  <input type="text" [(ngModel)]="fontTitle">
-  <button (click)="addTitle()">add</button>
-  <ul *ngFor="let font of fonts">
-    <li>
-      {{font.title}}
-    </li>
-  </ul>
 <router-outlet></router-outlet>

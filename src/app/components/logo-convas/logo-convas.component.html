@@ -1,6 +1,25 @@
+<div class="mt-2 col-3 input-group">
+    <select class="custom-select" id="inputGroupSelect04">
+      <option selected>Choose...</option>
+      <option *ngFor="let font of fonts" [value]="font.title">
+        {{ font.title }}</option
+      >
+    </select>
+  </div>
+<div class="col-4 input-group">
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="idLogoText"
+        placeholder="Enter text ..."
+        aria-label="Recipient's username"
+        aria-describedby="basic-addon2"
+      />
+      <div class="input-group-append">
+        <button class="btn btn-primary" (click)="wtiteText()">edit text</button>
+      </div>
+    </div> 
 
-<input [(ngModel)]="idLogoText" type="text" placeholder="Enter text ...">
-<button (click)="wtiteText()">edit text</button>
    <canvas #idLogo width="300" height="150" (mousedown)="onMouseDown($event)"
   (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp($event)"></canvas>
   <br/>

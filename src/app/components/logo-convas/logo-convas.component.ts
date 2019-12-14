@@ -1,5 +1,7 @@
 import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { Logo, LogosService } from 'src/app/services/app-logos.service';
+import { Font, FontsService } from 'src/app/services/app.fonts.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-logo-convas',
@@ -10,6 +12,14 @@ export class LogoConvasComponent implements OnInit {
   @ViewChild('idLogo') idLogo: ElementRef;
   @ViewChild('idimg') idimg: ElementRef;
 
+  fonts: Font[] = [];
+  fontTitle = '';
+  fontsList = 'Roboto';
+  fontUri: string;
+  tom: any;
+  sub: Subscription;
+  arrayFonts = [];
+
   convas;
   context;
   isDrawing = false;
@@ -19,9 +29,25 @@ export class LogoConvasComponent implements OnInit {
   idLogoText: string;
   logos: Logo[] = [];
 
-  constructor(private logoService: LogosService) {}
+  constructor(private logoService: LogosService, private fontsService: FontsService) {}
 
   ngOnInit() {
+    this.sub = this.fontsService.getFontsList().subscribe(response => {
+      this.fonts = response;
+    });
+
+    // create tags <link> with fonts
+    setTimeout(() => {
+      if (this.fonts.length !== 0 ) {
+        for (let i = 0; i < this.fonts.length; i++) {
+          this.arrayFonts.push(this.fonts[i].title);
+        }
+        this.fontsService.generateFonts(this.arrayFonts);
+        this.sub.unsubscribe();
+      }
+    }, 1000);
+
+    // canvas
     this.image.src = '././assets/images/hamster-nasil-egitilir-820x510.jpg';
     this.convas = this.idLogo.nativeElement;
     this.context = <HTMLCanvasElement>this.convas.getContext('2d');
@@ -36,6 +62,31 @@ export class LogoConvasComponent implements OnInit {
     this.context.font = '30px Arial';
     this.context.fillText(this.text, 50, 100);
   }
+  getFontsList() {
+    this.fontsService.getFontsList().subscribe(response => {
+      this.fonts = response;
+      console.log(this.fonts);
+      console.log(response);
+      return response;
+    });
+  }
+
+  addTitle() {
+    if (!this.fontTitle.trim()) {
+      return;
+    }
+
+    this.fontsService
+      .addTitle({
+        title: this.fontTitle
+      })
+      .subscribe(font => {
+        console.log(font);
+      });
+  }
+
+
+  // canvas
   wtiteText() {
     this.context.clearRect(0, 0, 150, 150);
     this.context.beginPath();
