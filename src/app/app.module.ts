@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { LogoConvasComponent } from './components/logo-convas/logo-convas.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LogoConvasComponent
+    LogoConvasComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

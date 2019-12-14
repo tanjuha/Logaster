@@ -13,6 +13,7 @@ export class LogoConvasComponent implements OnInit {
   @ViewChild('idimg') idimg: ElementRef;
   @ViewChild('idFontSelect') idFontSelect: ElementRef;
 
+  idImgSelect: string;
   fonts: Font[] = [];
   fontTitle = '';
   fontsList = 'Roboto';
@@ -99,8 +100,34 @@ export class LogoConvasComponent implements OnInit {
     this.context.font = `30px ${this.idFontSelect}`;
     this.context.fillText(this.idLogoText, 50, 100);
 
-    console.log('own text = ', this.text, 'input text =', this.idLogoText);
-    console.log('idFontSelect', this.idFontSelect);
+    // console.log('own text = ', this.text, 'input text =', this.idLogoText);
+    // console.log('idFontSelect', this.idFontSelect);
+  }
+
+  changeImg() {
+    switch (this.idImgSelect) {
+      case 'triangle':
+        this.context.moveTo(100, 20);
+        this.context.lineTo(150, 75);
+        this.context.lineTo(50, 75);
+        console.log('triangle');
+        break;
+      case 'squre':
+        this.context.rect(20, 20, 70, 70);
+        this.context.stroke();
+        console.log('squre');
+        break;
+      case 'circle':
+        this.context.clearRect(151, 0, 150, 150);
+        this.context.arc(95, 50, 40, 0, 2 * Math.PI);
+        this.context.stroke();
+        console.log('circle');
+        break;
+      default:
+        console.log('default');
+    }
+    this.context.fill();
+    console.log('idImgSelect', this.idImgSelect);
   }
 
   onMouseUp(e) {
