@@ -2,12 +2,14 @@ import {
   Component,
   OnInit,
   ViewChild,
-  ElementRef,
   Output,
   EventEmitter,
-  AfterViewInit
+  Input
 } from '@angular/core';
-import { FontFamily, FontFamilyService } from 'src/app/services/app-font-family.service';
+import {
+  FontFamily,
+  FontFamilyService
+} from 'src/app/services/app-font-family.service';
 
 @Component({
   selector: 'app-font-family',
@@ -15,19 +17,22 @@ import { FontFamily, FontFamilyService } from 'src/app/services/app-font-family.
   styleUrls: ['./font-family.component.scss']
 })
 export class FontsFamilyComponent implements OnInit {
+  // @ViewChild('idFontFamily' ) idFontFamily: ElementRef;
 
-   @ViewChild('idFontFamily' ) idFontFamily: ElementRef;
+  @Input() idLogo;
 
   @Output() addFontFamily: EventEmitter<string> = new EventEmitter<string>();
 
   fontFamilyList: FontFamily[] = [];
   arrayFontFamily = [];
- 
+  idFontFamily: string;
+
   constructor(private fontsService: FontFamilyService) {}
 
   ngOnInit() {
-
-   this.fontsService.getFontFamilyList().subscribe(response => {
+    this.idFontFamily = this.idLogo;
+    console.log('idLogo', this.idLogo);
+    this.fontsService.getFontFamilyList().subscribe(response => {
       this.fontFamilyList = response;
     });
 
@@ -50,6 +55,6 @@ export class FontsFamilyComponent implements OnInit {
 
   changeFontFamily() {
     this.addFontFamily.emit(`${this.idFontFamily}`);
+    console.log('this.idFontFamily', this.idFontFamily);
   }
-
 }

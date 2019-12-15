@@ -3,6 +3,8 @@ import {
   ViewChild,
   OnInit,
   ElementRef,
+  Input,
+  Output
 } from '@angular/core';
 import { Logo, LogosService } from 'src/app/services/app-logos.service';
 import { Subscription } from 'rxjs';
@@ -17,11 +19,10 @@ export class LogoConvasComponent implements OnInit {
   @ViewChild('idLogo') idLogo: ElementRef;
   @ViewChild('idimg') idimg: ElementRef;
 
+  @Output() text: string;
+
   newfontFamily = 'Roboto';
   idImgSelect: string;
-  fontUri: string;
-  tom: any;
-  sub: Subscription;
   arrayFonts = [];
 
   convas;
@@ -29,8 +30,7 @@ export class LogoConvasComponent implements OnInit {
   isDrawing = false;
   img;
   image = new Image();
-  text = '@tom';
-  idLogoText: string;
+  textLogo: string;
   logos: Logo[] = [];
   logo = [];
   paramId: string;
@@ -69,15 +69,15 @@ export class LogoConvasComponent implements OnInit {
   }
 
   // canvas
-  wtiteText() {
+  addText(text) {
     this.context.clearRect(0, 0, 150, 150);
     this.context.beginPath();
-    if (this.idLogoText === undefined) {
-      this.idLogoText = '';
+    if (text === undefined) {
+      text = '';
     }
     this.context.font = `30px ${this.newfontFamily} `;
-    this.context.fillText(this.idLogoText, 50, 100);
-    console.log('write text', this.context.font, 'dfdf', this.newfontFamily);
+    this.context.fillText(text, 50, 100);
+    this.textLogo = text;
   }
 
   changeImg() {
@@ -105,31 +105,6 @@ export class LogoConvasComponent implements OnInit {
     this.context.fill();
   }
 
-  onMouseUp(e) {
-    this.isDrawing = false;
-  }
-
-  onMouseDown(e) {
-    this.isDrawing = true;
-    const coords = this.relativeCoords(e);
-    this.context.moveTo(coords.x, coords.y);
-  }
-
-  onMouseMove(e) {
-    if (this.isDrawing) {
-      const coords = this.relativeCoords(e);
-      this.context.lineTo(coords.x, coords.y);
-      this.context.stroke();
-    }
-  }
-
-  private relativeCoords(event) {
-    const bounds = event.target.getBoundingClientRect();
-    const x = event.clientX - bounds.left;
-    const y = event.clientY - bounds.top;
-    return { x: x, y: y };
-  }
-
   clear() {
     this.context.clearRect(0, 0, this.convas.width, this.convas.height);
     this.context.beginPath();
@@ -146,9 +121,9 @@ export class LogoConvasComponent implements OnInit {
 
     // edit
     this.logoService
-      .editLogo(this.paramId, this.img, this.idLogoText)
+      .editLogo(this.paramId, this.img, this.textLogo)
       .subscribe();
-    console.log('edit Done!!!', this.idLogoText, this.img, ' = img');
+    console.log('edit Done!!!', this.textLogo, this.img, ' = img');
   }
 
   showLogos() {
@@ -168,11 +143,11 @@ export class LogoConvasComponent implements OnInit {
     this.newfontFamily = fontFamily;
     this.context.clearRect(0, 0, 150, 150);
     this.context.beginPath();
-    if (this.idLogoText === undefined) {
-      this.idLogoText = '';
+    if (this.textLogo === undefined) {
+      this.textLogo = '';
     }
     this.context.font = `30px ${fontFamily} `;
-    this.context.fillText(this.idLogoText, 50, 100);
-    console.log('object', fontFamily, 'this.context.font', this.context.font);
+    this.context.fillText(this.textLogo, 50, 100);
+    console.log('this.textLogo', this.textLogo);
   }
 }

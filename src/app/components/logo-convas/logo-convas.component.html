@@ -7,21 +7,18 @@
   save and go to home
 </button>
 
-<app-font-family (addFontFamily)="addFontFamily($event)"></app-font-family>
+<app-font-family
+  *ngIf="paramId"
+  [idLogo]="paramId"
+  (addFontFamily)="addFontFamily($event)"
+></app-font-family>
 
-<div class="col-4 input-group">
-  <input
-    type="text"
-    class="form-control"
-    [(ngModel)]="idLogoText"
-    placeholder="Enter text ..."
-    aria-label="Recipient's username"
-    aria-describedby="basic-addon2"
-  />
-  <div class="input-group-append">
-    <button class="btn btn-primary" (click)="wtiteText()">edit text</button>
-  </div>
-</div>
+<app-text
+  *ngFor="let l of logo"
+  [text]="l.text"
+  (addText)="addText($event)"
+></app-text>
+
 <div class="mt-2 col-3 input-group">
   <select class="custom-select" [(ngModel)]="idImgSelect">
     <option selected>Choose...</option>
@@ -32,14 +29,7 @@
   <button (click)="changeImg()" class="btn btn-danger">img</button>
 </div>
 
-<canvas
-  #idLogo
-  width="300"
-  height="150"
-  (mousedown)="onMouseDown($event)"
-  (mousemove)="onMouseMove($event)"
-  (mouseup)="onMouseUp($event)"
-></canvas>
+<canvas #idLogo width="300" height="150"></canvas>
 <br />
 <button (click)="clear()">clear</button>
 <button class="btn btn-success" (click)="addLogo()">save</button>
