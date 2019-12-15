@@ -31,7 +31,9 @@ export class LogoConvasComponent implements OnInit {
   text = '@tom';
   idLogoText: string;
   logos: Logo[] = [];
-  logo: any;
+  logo = [];
+  paramId: string;
+
 
   constructor(
     private logoService: LogosService,
@@ -56,30 +58,30 @@ export class LogoConvasComponent implements OnInit {
       }
     }, 1000);
 
-    // canvas
-    this.image.src = '././assets/images/hamster-nasil-egitilir-820x510.jpg';
-    this.convas = this.idLogo.nativeElement;
-    this.context = <HTMLCanvasElement>this.convas.getContext('2d');
-    this.context.strokeStyle = '#3742fa';
+    setTimeout(() => {
+      // canvas
+      this.image.src = `${this.logo[0].imgLogo}`;
+      this.convas = this.idLogo.nativeElement;
+      this.context = <HTMLCanvasElement>this.convas.getContext('2d');
+      this.context.strokeStyle = '#3742fa';
 
-    this.image.onload = () => {
-      setTimeout(() => {
-        this.context.drawImage(this.image, 150, 0);
-      }, 1000);
-    };
-    this.context.fillStyle = 'red';
-    this.context.font = '30px Arial';
-    this.context.fillText(this.text, 50, 100);
-
+      this.image.onload = () => {
+        setTimeout(() => {
+          this.context.drawImage(this.image, 150, 0);
+        }, 1000);
+      };
+      this.context.fillStyle = 'red';
+      this.context.font = '30px Arial';
+      this.context.fillText(this.text, 50, 100);
+    }, 1000);
 
     // route get param for id
-    this.route.params.subscribe(param => {
-       this.logoService.getById(param.id).subscribe(res => {
-          this.logo = res;
-          console.log(this.logo)
-       });
+   this.route.params.subscribe(param => {
+      this.logoService.getById(param.id).subscribe(res => {
+        this.logo = res;
+        this.paramId = param.id;
+      });
     });
-
   }
   getFontsList() {
     this.fontsService.getFontsList().subscribe(response => {
@@ -117,6 +119,10 @@ export class LogoConvasComponent implements OnInit {
     // console.log('own text = ', this.text, 'input text =', this.idLogoText);
     // console.log('idFontSelect', this.idFontSelect);
   }
+  // editLogo() {
+  //   this.logoService.editLogo(this.paramId, '2', '2').subscribe();
+  //   console.log('edit Done!!!', this.paramId );
+  // }
 
   changeImg() {
     switch (this.idImgSelect) {
@@ -176,12 +182,16 @@ export class LogoConvasComponent implements OnInit {
 
   addLogo() {
     this.img = this.convas.toDataURL('image/jpg');
-    this.logoService
-      .addLogo({
-        imgLogo: this.img,
-        text: this.idLogoText
-      })
-      .subscribe();
+    // this.logoService
+    //   .addLogo({
+    //     imgLogo: this.img,
+    //     text: this.idLogoText
+    //   })
+    //   .subscribe();
+
+        // edit
+    this.logoService.editLogo(this.paramId, this.img, this.idLogoText).subscribe();
+    console.log('edit Done!!!', this.idLogoText, this.img, " = img" );
   }
 
   showLogos() {
@@ -196,6 +206,4 @@ export class LogoConvasComponent implements OnInit {
     this.router.navigate(['/']);
     console.log('go home');
   }
-
-
 }
