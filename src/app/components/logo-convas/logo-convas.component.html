@@ -1,43 +1,76 @@
-<div *ngFor="let logo of logos">
-  <img [src]="logo.imgLogo" />
-  <p>{{ logo.text }}</p>
+<div class="container">
+  <div class="row justify-content-between">
+    <div class=" col-sm-6 col-md-4">
+      <h3 class="edit-title">Edit logo</h3>
+      <div class="logo edit-lodo">
+        <div class="d-flex">
+          <div class="w-50">
+            <app-font-family
+              *ngFor="let logo of logos"
+              [fontFamily]="logo.fontFamily"
+              (addFontFamily)="addFontFamily($event)"
+            ></app-font-family>
+          </div>
+          <div class="mt-2 col-6">
+            <ng-select
+              [items]="imgTenplate"
+              bindLabel="title"
+              bindValue="title"
+              (change)="changeImg(idImgSelect)"
+              placeholder="Geometric figure..."
+              [(ngModel)]="idImgSelect"
+            >
+              <ng-template ng-label-tmp let-item="item">
+                {{ item.title }}
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+        <app-text
+          *ngFor="let logo of logos"
+          [text]="logo.text"
+          (addText)="addText($event)"
+        ></app-text>
+
+        <div class="canvas-logo">
+          <canvas #idLogo width="300" height="200"></canvas>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-danger" (click)="clear()">clear all</button>
+          <button class="btn btn-success" (click)="editLogo()">see demo</button>
+        </div>
+      </div>
+    </div>
+    <div class=" col-sm-6 col-md-4">
+      <h3 class="edit-title">Demo logo</h3>
+      <div class=" logo">
+        <img
+          class="demo-logo"
+          #idimg
+          *ngIf="img; else defaultImg"
+          [src]="img"
+          alt="demo logo"
+        />
+        <ng-template #defaultImg>
+          <img
+            class="demo-logo-default"
+            src="../../../assets/images/default-img.png"
+            alt="default img"
+          />
+        </ng-template>
+        <button class="btn btn-success save-logo" (click)="saveAndGoHome()">
+          save and go to home
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+      <h3 class="edit-title">Live logo</h3>
+      <div class=" logo ">
+        <div class="live-logo" *ngFor="let logo of logos">
+          <img [src]="logo.imgLogo" />
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<button class="btn btn-success" (click)="saveAndGoHome()">
-  save and go to home
-</button>
-
-<app-font-family
-  *ngFor="let logo of logos"
-  [fontFamily]="logo.fontFamily"
-  (addFontFamily)="addFontFamily($event)"
-></app-font-family>
-
-<app-text
-  *ngFor="let logo of logos"
-  [text]="logo.text"
-  (addText)="addText($event)"
-></app-text>
-
-<div class="mt-2 col-4">
-  <ng-select
-    [items]="imgTenplate"
-    bindLabel="title"
-    bindValue="title"
-    (change)="changeImg(idImgSelect)"
-    placeholder="Select geometric figure..."
-    [(ngModel)]="idImgSelect"
-  >
-    <ng-template ng-label-tmp let-item="item">
-      {{ item.title }}
-    </ng-template>
-  </ng-select>
-</div>
-
-<canvas #idLogo width="300" height="150"></canvas>
-<br />
-<button (click)="clear()">clear</button>
-<button class="btn btn-success" (click)="editLogo()">save</button>
-
-<br />
-<img #idimg *ngIf="img" [src]="img" />
-<br />
