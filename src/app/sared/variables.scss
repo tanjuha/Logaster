@@ -2,9 +2,11 @@ $width-card: 300px;
 $height-card: 200px;
 
 $main-color: #ddd;
-$primary-color: red;
+$primary-color: #00ffd080;
+$edit-home-icon: $main-color;
 
-$box-shadow:  0 4px 6px 0px $main-color;
-$bg-light: rgba($primary-color, .5);
+$box-shadow: 0 4px 6px 0px $main-color;
+$bg-light: rgba($primary-color, 0.5);
 
 $transition-slow: all 0.7s;
+$transition: all 0.5s;

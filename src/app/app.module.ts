@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FontsFamilyComponent } from './components/font-family/font-family.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TextComponent } from './components/text/text.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TextComponent } from './components/text/text.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgSelectModule
+    NgSelectModule,
+    AngularFontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
