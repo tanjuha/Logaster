@@ -11,6 +11,7 @@ import { FontsFamilyComponent } from './components/font-family/font-family.compo
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TextComponent } from './components/text/text.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     LogoConvasComponent,
     HomeComponent,
     FontsFamilyComponent,
-    TextComponent
+    TextComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

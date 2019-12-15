@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import {
   LogosService,
-  ImgTemplate
+  ImgTemplate,
 } from 'src/app/services/app-logos.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -67,7 +67,6 @@ export class LogoConvasComponent implements OnInit {
       this.logoService.getById(param.id).subscribe(res => {
         this.logos = res;
         this.paramId = param.id;
-        console.log(res);
       });
     });
   }
@@ -112,7 +111,11 @@ export class LogoConvasComponent implements OnInit {
     this.context.beginPath();
   }
 
-  editLogo() {
+  demo() {
+    this.img = this.convas.toDataURL('image/jpg');
+  }
+
+  saveAndGoHome() {
     this.img = this.convas.toDataURL('image/jpg');
     this.logoService
       .editLogo(
@@ -123,13 +126,7 @@ export class LogoConvasComponent implements OnInit {
         this.fontFamily
       )
       .subscribe();
-
-    console.log('edit Done!!!', this.textLogo, this.img, ' = img');
-  }
-
-  saveAndGoHome() {
     this.router.navigate(['/logo']);
-    console.log('go home');
   }
 
   addFontFamily(fontFamily) {
@@ -141,6 +138,5 @@ export class LogoConvasComponent implements OnInit {
     }
     this.context.font = `30px ${fontFamily} `;
     this.context.fillText(this.textLogo, 50, 100);
-    console.log('this.textLogo', this.textLogo);
   }
 }

@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  Output,
-  EventEmitter,
-  Input
-} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import {
   FontFamily,
   FontFamilyService
@@ -13,12 +6,9 @@ import {
 
 @Component({
   selector: 'app-font-family',
-  templateUrl: './font-family.component.html',
-  styleUrls: ['./font-family.component.scss']
+  templateUrl: './font-family.component.html'
 })
 export class FontsFamilyComponent implements OnInit {
-  // @ViewChild('idFontFamily' ) idFontFamily: ElementRef;
-
   @Input() fontFamily;
 
   @Output() addFontFamily: EventEmitter<string> = new EventEmitter<string>();

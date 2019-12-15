@@ -1,3 +1,4 @@
+<app-spinner *ngIf="showSpinner"></app-spinner>
 <div class="container">
   <div class="row justify-content-center">
     <div
@@ -6,8 +7,9 @@
     >
       <div class="card-item-logo">
         <img class="card-img-logo" [src]="logo.imgLogo" alt="logo.text" />
-       
-      <a class="card-link-logo" [routerLink]="['/logo/', logo.id]"> <fa class="edit-icon" name="edit"  title="edit logo"></fa></a>
+        <a class="card-link-logo" [routerLink]="['/logo/', logo.id]">
+          <fa class="edit-icon" name="edit" title="edit logo"></fa
+        ></a>
       </div>
     </div>
   </div>

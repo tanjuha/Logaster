@@ -31,14 +31,12 @@
           [text]="logo.text"
           (addText)="addText($event)"
         ></app-text>
-
         <div class="canvas-logo">
           <canvas #idLogo width="300" height="200"></canvas>
         </div>
-
         <div class="d-flex justify-content-between">
           <button class="btn btn-danger" (click)="clear()">clear all</button>
-          <button class="btn btn-success" (click)="editLogo()">see demo</button>
+          <button class="btn btn-info" (click)="demo()">watch demo</button>
         </div>
       </div>
     </div>
@@ -60,13 +58,13 @@
           />
         </ng-template>
         <button class="btn btn-success save-logo" (click)="saveAndGoHome()">
-          save and go to home
+          save and go home
         </button>
       </div>
     </div>
     <div class="col-sm-6 col-md-4">
       <h3 class="edit-title">Live logo</h3>
-      <div class=" logo ">
+      <div class="logo">
         <div class="live-logo" *ngFor="let logo of logos">
           <img [src]="logo.imgLogo" />
         </div>

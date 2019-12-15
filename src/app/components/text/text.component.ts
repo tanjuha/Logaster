@@ -2,8 +2,7 @@ import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-text',
-  templateUrl: './text.component.html',
-  styleUrls: ['./text.component.scss']
+  templateUrl: './text.component.html'
 })
 export class TextComponent implements OnInit {
   @Input() text: string;
