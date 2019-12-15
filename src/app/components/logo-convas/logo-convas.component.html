@@ -1,41 +1,43 @@
-<div *ngFor="let l of logo">
-  <img [src]="l.imgLogo" />
-  <p>{{ l.text }}</p>
+<div *ngFor="let logo of logos">
+  <img [src]="logo.imgLogo" />
+  <p>{{ logo.text }}</p>
 </div>
-
 <button class="btn btn-success" (click)="saveAndGoHome()">
   save and go to home
 </button>
 
 <app-font-family
-  *ngIf="paramId"
-  [idLogo]="paramId"
+  *ngFor="let logo of logos"
+  [fontFamily]="logo.fontFamily"
   (addFontFamily)="addFontFamily($event)"
 ></app-font-family>
 
 <app-text
-  *ngFor="let l of logo"
-  [text]="l.text"
+  *ngFor="let logo of logos"
+  [text]="logo.text"
   (addText)="addText($event)"
 ></app-text>
 
-<div class="mt-2 col-3 input-group">
-  <select class="custom-select" [(ngModel)]="idImgSelect">
-    <option selected>Choose...</option>
-    <option value="circle">circle</option>
-    <option value="triangle">triangle</option>
-    <option value="squre">squre</option>
-  </select>
-  <button (click)="changeImg()" class="btn btn-danger">img</button>
+<div class="mt-2 col-4">
+  <ng-select
+    [items]="imgTenplate"
+    bindLabel="title"
+    bindValue="title"
+    (change)="changeImg(idImgSelect)"
+    placeholder="Select geometric figure..."
+    [(ngModel)]="idImgSelect"
+  >
+    <ng-template ng-label-tmp let-item="item">
+      {{ item.title }}
+    </ng-template>
+  </ng-select>
 </div>
 
 <canvas #idLogo width="300" height="150"></canvas>
 <br />
 <button (click)="clear()">clear</button>
-<button class="btn btn-success" (click)="addLogo()">save</button>
+<button class="btn btn-success" (click)="editLogo()">save</button>
 
 <br />
 <img #idimg *ngIf="img" [src]="img" />
 <br />
-
-<!-- <button class="btn btn-success" (click)="editLogo()">edit</button> -->

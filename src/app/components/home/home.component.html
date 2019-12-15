@@ -1,9 +1,9 @@
 <h1>Home</h1>
-<ul *ngFor="let logo of listLogos">
+<ul *ngFor="let logo of Logos">
   <li>
-    <a [routerLink]="['/logo/', logo.id]" >
-        <img [src]="logo.imgLogo" alt="name" />
+    <a [routerLink]="['/logo/', logo.id]">
+      <img [src]="logo.imgLogo" alt="logo.text" />
     </a>
-      <span>{{ logo.text }}</span>
+    <span>{{ logo.text }}</span>
   </li>
 </ul>

@@ -3,11 +3,12 @@ import {
   ViewChild,
   OnInit,
   ElementRef,
-  Input,
   Output
 } from '@angular/core';
-import { Logo, LogosService } from 'src/app/services/app-logos.service';
-import { Subscription } from 'rxjs';
+import {
+  LogosService,
+  ImgTemplate
+} from 'src/app/services/app-logos.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -21,18 +22,17 @@ export class LogoConvasComponent implements OnInit {
 
   @Output() text: string;
 
-  newfontFamily = 'Roboto';
-  idImgSelect: string;
-  arrayFonts = [];
-
   convas;
   context;
-  isDrawing = false;
-  img;
+  idImgSelect: string;
+  arrayFonts = [];
+  imgTenplate: ImgTemplate[] = [];
+  fillStyle: string;
+  fontFamily: string;
+  img: string;
   image = new Image();
   textLogo: string;
-  logos: Logo[] = [];
-  logo = [];
+  logos = [];
   paramId: string;
 
   constructor(
@@ -42,65 +42,67 @@ export class LogoConvasComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.logoService.getImgTemplate().subscribe(res => {
+      this.imgTenplate = res;
+    });
     setTimeout(() => {
-      // canvas
-      this.image.src = `${this.logo[0].imgLogo}`;
+      this.image.src = `${this.logos[0].imgLogo}`;
+      this.fontFamily = `${this.logos[0].fontFamily}`;
+      this.textLogo = `${this.logos[0].text}`;
+      this.fillStyle = `${this.logos[0].fillStyle}`;
       this.convas = this.idLogo.nativeElement;
       this.context = <HTMLCanvasElement>this.convas.getContext('2d');
-      this.context.strokeStyle = '#3742fa';
 
       this.image.onload = () => {
         setTimeout(() => {
           this.context.drawImage(this.image, 150, 0);
         }, 1000);
       };
-      this.context.fillStyle = 'red';
-      this.context.font = '30px Arial';
-      this.context.fillText(this.text, 50, 100);
+      this.context.fillStyle = `${this.fillStyle}`;
+      this.context.font = `30px ${this.fontFamily}`;
+      this.context.fillText(this.textLogo, 50, 100);
     }, 1000);
 
-    // route get param for id
     this.route.params.subscribe(param => {
       this.logoService.getById(param.id).subscribe(res => {
-        this.logo = res;
+        this.logos = res;
         this.paramId = param.id;
+        console.log(res);
       });
     });
   }
 
-  // canvas
   addText(text) {
     this.context.clearRect(0, 0, 150, 150);
     this.context.beginPath();
     if (text === undefined) {
       text = '';
     }
-    this.context.font = `30px ${this.newfontFamily} `;
+    this.context.font = `30px ${this.fontFamily} `;
     this.context.fillText(text, 50, 100);
     this.textLogo = text;
   }
 
-  changeImg() {
-    switch (this.idImgSelect) {
-      case 'triangle':
+  changeImg(idImgSelect) {
+    switch (idImgSelect) {
+      case 'triagle':
         this.context.moveTo(100, 20);
         this.context.lineTo(150, 75);
         this.context.lineTo(50, 75);
-        console.log('triangle');
         break;
-      case 'squre':
+      case 'square':
         this.context.rect(20, 20, 70, 70);
         this.context.stroke();
-        console.log('squre');
         break;
       case 'circle':
         this.context.clearRect(151, 0, 150, 150);
         this.context.arc(95, 50, 40, 0, 2 * Math.PI);
         this.context.stroke();
-        console.log('circle');
         break;
       default:
-        console.log('default');
+        this.context.clearRect(151, 0, 150, 150);
+        this.context.arc(95, 50, 40, 0, 2 * Math.PI);
+        this.context.stroke();
     }
     this.context.fill();
   }
@@ -110,28 +112,19 @@ export class LogoConvasComponent implements OnInit {
     this.context.beginPath();
   }
 
-  addLogo() {
+  editLogo() {
     this.img = this.convas.toDataURL('image/jpg');
-    // this.logoService
-    //   .addLogo({
-    //     imgLogo: this.img,
-    //     text: this.idLogoText
-    //   })
-    //   .subscribe();
-
-    // edit
     this.logoService
-      .editLogo(this.paramId, this.img, this.textLogo)
+      .editLogo(
+        this.paramId,
+        this.img,
+        this.textLogo,
+        this.fillStyle,
+        this.fontFamily
+      )
       .subscribe();
-    console.log('edit Done!!!', this.textLogo, this.img, ' = img');
-  }
 
-  showLogos() {
-    this.logoService.showLogos().subscribe(logo => {
-      this.logos = logo;
-      console.log('logo', logo);
-      return logo;
-    });
+    console.log('edit Done!!!', this.textLogo, this.img, ' = img');
   }
 
   saveAndGoHome() {
@@ -140,11 +133,11 @@ export class LogoConvasComponent implements OnInit {
   }
 
   addFontFamily(fontFamily) {
-    this.newfontFamily = fontFamily;
+    this.fontFamily = fontFamily;
     this.context.clearRect(0, 0, 150, 150);
     this.context.beginPath();
     if (this.textLogo === undefined) {
-      this.textLogo = '';
+      this.textLogo = this.fontFamily;
     }
     this.context.font = `30px ${fontFamily} `;
     this.context.fillText(this.textLogo, 50, 100);

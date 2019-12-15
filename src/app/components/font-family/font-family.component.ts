@@ -19,7 +19,7 @@ import {
 export class FontsFamilyComponent implements OnInit {
   // @ViewChild('idFontFamily' ) idFontFamily: ElementRef;
 
-  @Input() idLogo;
+  @Input() fontFamily;
 
   @Output() addFontFamily: EventEmitter<string> = new EventEmitter<string>();
 
@@ -30,8 +30,7 @@ export class FontsFamilyComponent implements OnInit {
   constructor(private fontsService: FontFamilyService) {}
 
   ngOnInit() {
-    this.idFontFamily = this.idLogo;
-    console.log('idLogo', this.idLogo);
+    this.idFontFamily = this.fontFamily;
     this.fontsService.getFontFamilyList().subscribe(response => {
       this.fontFamilyList = response;
     });
@@ -55,6 +54,5 @@ export class FontsFamilyComponent implements OnInit {
 
   changeFontFamily() {
     this.addFontFamily.emit(`${this.idFontFamily}`);
-    console.log('this.idFontFamily', this.idFontFamily);
   }
 }

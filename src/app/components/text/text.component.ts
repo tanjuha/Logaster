@@ -12,7 +12,6 @@ export class TextComponent implements OnInit {
 
   ngOnInit() {
     this.idLogoText = this.text;
-    console.log(this.text)
   }
 
   wtiteText() {

@@ -8,6 +8,12 @@ export interface Logo {
   id?: string;
   text: string;
   imgLogo: string;
+  fontFamily: string;
+  fillStyle?: string;
+}
+
+export interface ImgTemplate {
+  title: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -20,7 +26,9 @@ export class LogosService {
       return Object.keys(res).map(key => {
         const imgLogo = `${res[key].imgLogo}`;
         const  text = `${res[key].text}`;
-        return { ...res[key], imgLogo, text, id: key};
+        const fontFamily = `${res[key].fontFamily}`;
+        const fillStyle = `${res[key].fillStyle}`;
+        return { ...res[key], imgLogo, text, id: key, fillStyle, fontFamily};
       });
         }));
   }
@@ -32,17 +40,30 @@ export class LogosService {
     );
   }
 
+  getImgTemplate() {
+    return this.http.get(`https://logaster-df59c.firebaseio.com/img-template.json`)
+    .pipe(
+      map(res => {
+        return Object.keys(res).map(key => {
+          return { ...res[key] };
+        });
+      })
+    );
+  }
+
   getById(id: string) {
     return this.http.get(`https://logaster-df59c.firebaseio.com/logos/${id}.json`).pipe(map(res => {
       return [res];
         }));
   }
 
-  editLogo(id: string, imgLogo: string, text: string) {
+  editLogo(id: string, imgLogo: string, text: string, fillStyle: string, fontFamily: string ) {
     console.log('id = ', id, 'imgLogo  = ', imgLogo, 'text', text);
     return this.http.put(`https://logaster-df59c.firebaseio.com/logos/${id}.json`, {
       imgLogo,
-      text
+      text,
+      fillStyle,
+      fontFamily
     });
   }
 
