@@ -1,9 +1,13 @@
-<h1>Home</h1>
-<ul *ngFor="let logo of Logos">
-  <li>
-    <a [routerLink]="['/logo/', logo.id]">
-      <img [src]="logo.imgLogo" alt="logo.text" />
-    </a>
-    <span>{{ logo.text }}</span>
-  </li>
-</ul>
+<div class="container">
+  <div class="row justify-content-center">
+    <div
+      class="card-logo col-sm-6 col-md-5 col-lg-4"
+      *ngFor="let logo of Logos"
+    >
+      <div class="card-item-logo">
+        <img class="card-img-logo" [src]="logo.imgLogo" alt="logo.text" />
+      <a class="card-link-logo" [routerLink]="['/logo/', logo.id]"> </a>
+      </div>
+    </div>
+  </div>
+</div>

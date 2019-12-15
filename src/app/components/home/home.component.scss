@@ -1,0 +1,27 @@
+@import '../../sared/variables.scss';
+
+.card-logo {
+  .card-item-logo {
+    position: relative;
+    width: $width-card;
+    height: $height-card;
+    margin: 35px auto;
+    .card-img-logo {
+      width: 100%;
+      height: 100%;
+      box-shadow: $box-shadow;
+    }
+    .card-link-logo {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transition: $transition-slow;
+
+      top: 0;
+      left: 0;
+      &:hover {
+        background: $bg-light;
+      }
+    }
+  }
+}
