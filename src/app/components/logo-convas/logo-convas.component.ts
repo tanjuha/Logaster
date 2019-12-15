@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { Logo, LogosService } from 'src/app/services/app-logos.service';
 import { Font, FontsService } from 'src/app/services/app.fonts.service';
 import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-logo-convas',
@@ -30,10 +31,13 @@ export class LogoConvasComponent implements OnInit {
   text = '@tom';
   idLogoText: string;
   logos: Logo[] = [];
+  logo: any;
 
   constructor(
     private logoService: LogosService,
-    private fontsService: FontsService
+    private fontsService: FontsService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -66,6 +70,16 @@ export class LogoConvasComponent implements OnInit {
     this.context.fillStyle = 'red';
     this.context.font = '30px Arial';
     this.context.fillText(this.text, 50, 100);
+
+
+    // route get param for id
+    this.route.params.subscribe(param => {
+       this.logoService.getById(param.id).subscribe(res => {
+          this.logo = res;
+          console.log(this.logo)
+       });
+    });
+
   }
   getFontsList() {
     this.fontsService.getFontsList().subscribe(response => {
@@ -177,4 +191,11 @@ export class LogoConvasComponent implements OnInit {
       return logo;
     });
   }
+
+  saveAndGoHome() {
+    this.router.navigate(['/']);
+    console.log('go home');
+  }
+
+
 }

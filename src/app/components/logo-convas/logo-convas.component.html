@@ -1,4 +1,10 @@
-<app-home></app-home>
+
+<div *ngFor = "let l of logo">
+    <img  [src]="l.imgLogo" >
+    <p>{{l.text}}</p> 
+</div>
+
+<button class="btn btn-success" (click)="saveAndGoHome()"> save and go to home</button>
 <div class="mt-2 col-3 input-group">
   <select class="custom-select" [(ngModel)]="idFontSelect">
     <option selected>Choose...</option>
@@ -43,14 +49,6 @@
 <button (click)="addLogo()">save</button>
 
 <br />
-<img #idimg [src]="img" />
+<img #idimg  *ngIf="img" [src]="img" />
 <br />
 
-<button (click)="showLogos()">show all logos</button>
-
-<ul *ngFor="let logo of logos">
-  <li>
-    <img [src]="logo.imgLogo" alt="name" />
-    <span>{{ logo.text }}</span>
-  </li>
-</ul>

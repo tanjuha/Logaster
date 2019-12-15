@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LogosService, Logo } from 'src/app/services/app-logos.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.component.html',
@@ -15,6 +16,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.logos.showLogos().subscribe(res => {
       this.listLogos = res;
+      console.log('home', res);
     });
    }
 

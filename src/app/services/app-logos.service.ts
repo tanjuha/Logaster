@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 
 export interface Logo {
+  id?: string;
   text: string;
   imgLogo: string;
 }
@@ -17,10 +18,9 @@ export class LogosService {
     return this.http.get('https://logaster-df59c.firebaseio.com/logos.json')
     .pipe(map(res => {
       return Object.keys(res).map(key => {
-        console.log('key - ', key);
         const imgLogo = `${res[key].imgLogo}`;
         const  text = `${res[key].text}`;
-        return { ...res[key], imgLogo, text};
+        return { ...res[key], imgLogo, text, id: key};
       });
         }));
   }
@@ -31,4 +31,12 @@ export class LogosService {
       logo
     );
   }
+
+  getById(id: string) {
+    return this.http.get(`https://logaster-df59c.firebaseio.com/logos/${id}.json`).pipe(map(res => {
+      return [res];
+        }));
+  }
+
+
 }
