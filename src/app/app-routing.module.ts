@@ -4,7 +4,8 @@ import { HomeComponent } from './components/home/home.component';
 import { LogoConvasComponent } from './components/logo-convas/logo-convas.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent, pathMatch: 'full'},
+  {path: '', redirectTo: 'logo', pathMatch: 'full'},
+  {path: 'logo', component: HomeComponent},
   {path: 'logo/:id', component: LogoConvasComponent}
 ];
 

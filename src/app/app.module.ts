@@ -7,12 +7,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { LogoConvasComponent } from './components/logo-convas/logo-convas.component';
 import { HomeComponent } from './components/home/home.component';
+import { FontsFamilyComponent } from './components/font-family/font-family.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LogoConvasComponent,
-    HomeComponent
+    HomeComponent,
+    FontsFamilyComponent
   ],
   imports: [
     BrowserModule,

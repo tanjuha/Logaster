@@ -1,18 +1,14 @@
-
-<div *ngFor = "let l of logo">
-    <img  [src]="l.imgLogo" >
-    <p>{{l.text}}</p> 
+<div *ngFor="let l of logo">
+  <img [src]="l.imgLogo" />
+  <p>{{ l.text }}</p>
 </div>
 
-<button class="btn btn-success" (click)="saveAndGoHome()"> save and go to home</button>
-<div class="mt-2 col-3 input-group">
-  <select class="custom-select" [(ngModel)]="idFontSelect">
-    <option selected>Choose...</option>
-    <option *ngFor="let font of fonts" [value]="font.title">
-      {{ font.title }}</option
-    >
-  </select>
-</div>
+<button class="btn btn-success" (click)="saveAndGoHome()">
+  save and go to home
+</button>
+
+<app-font-family (addFontFamily)="addFontFamily($event)"></app-font-family>
+
 <div class="col-4 input-group">
   <input
     type="text"
@@ -27,14 +23,14 @@
   </div>
 </div>
 <div class="mt-2 col-3 input-group">
-    <select class="custom-select" [(ngModel)]="idImgSelect">
-      <option selected>Choose...</option>
-      <option value="circle">circle</option>
-      <option value="triangle">triangle</option>
-      <option value="squre">squre</option>
-    </select>
-    <button (click)="changeImg()" class="btn btn-danger">img</button>
-  </div>
+  <select class="custom-select" [(ngModel)]="idImgSelect">
+    <option selected>Choose...</option>
+    <option value="circle">circle</option>
+    <option value="triangle">triangle</option>
+    <option value="squre">squre</option>
+  </select>
+  <button (click)="changeImg()" class="btn btn-danger">img</button>
+</div>
 
 <canvas
   #idLogo
@@ -49,7 +45,7 @@
 <button class="btn btn-success" (click)="addLogo()">save</button>
 
 <br />
-<img #idimg  *ngIf="img" [src]="img" />
+<img #idimg *ngIf="img" [src]="img" />
 <br />
 
 <!-- <button class="btn btn-success" (click)="editLogo()">edit</button> -->

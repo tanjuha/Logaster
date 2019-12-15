@@ -1,0 +1,8 @@
+<div class="mt-2 col-3 input-group">
+  <select class="custom-select" [(ngModel)]="idFontFamily">
+    <option *ngFor="let fontFamily of fontFamilyList" [value]="fontFamily.name">
+      {{ fontFamily.name }}</option
+    >
+  </select>
+  <button class="btn btn-info" (click)="changeFontFamily()">font family</button>
+</div>

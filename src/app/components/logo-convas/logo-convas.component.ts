@@ -1,6 +1,10 @@
-import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  OnInit,
+  ElementRef,
+} from '@angular/core';
 import { Logo, LogosService } from 'src/app/services/app-logos.service';
-import { Font, FontsService } from 'src/app/services/app.fonts.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -12,12 +16,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class LogoConvasComponent implements OnInit {
   @ViewChild('idLogo') idLogo: ElementRef;
   @ViewChild('idimg') idimg: ElementRef;
-  @ViewChild('idFontSelect') idFontSelect: ElementRef;
 
+  newfontFamily = 'Roboto';
   idImgSelect: string;
-  fonts: Font[] = [];
-  fontTitle = '';
-  fontsList = 'Roboto';
   fontUri: string;
   tom: any;
   sub: Subscription;
@@ -34,30 +35,13 @@ export class LogoConvasComponent implements OnInit {
   logo = [];
   paramId: string;
 
-
   constructor(
     private logoService: LogosService,
-    private fontsService: FontsService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.sub = this.fontsService.getFontsList().subscribe(response => {
-      this.fonts = response;
-    });
-
-    // create tags <link> with fonts
-    setTimeout(() => {
-      if (this.fonts.length !== 0) {
-        for (let i = 0; i < this.fonts.length; i++) {
-          this.arrayFonts.push(this.fonts[i].title);
-        }
-        this.fontsService.generateFonts(this.arrayFonts);
-        this.sub.unsubscribe();
-      }
-    }, 1000);
-
     setTimeout(() => {
       // canvas
       this.image.src = `${this.logo[0].imgLogo}`;
@@ -76,34 +60,12 @@ export class LogoConvasComponent implements OnInit {
     }, 1000);
 
     // route get param for id
-   this.route.params.subscribe(param => {
+    this.route.params.subscribe(param => {
       this.logoService.getById(param.id).subscribe(res => {
         this.logo = res;
         this.paramId = param.id;
       });
     });
-  }
-  getFontsList() {
-    this.fontsService.getFontsList().subscribe(response => {
-      this.fonts = response;
-      console.log(this.fonts);
-      console.log(response);
-      return response;
-    });
-  }
-
-  addTitle() {
-    if (!this.fontTitle.trim()) {
-      return;
-    }
-
-    this.fontsService
-      .addTitle({
-        title: this.fontTitle
-      })
-      .subscribe(font => {
-        console.log(font);
-      });
   }
 
   // canvas
@@ -113,16 +75,10 @@ export class LogoConvasComponent implements OnInit {
     if (this.idLogoText === undefined) {
       this.idLogoText = '';
     }
-    this.context.font = `30px ${this.idFontSelect}`;
+    this.context.font = `30px ${this.newfontFamily} `;
     this.context.fillText(this.idLogoText, 50, 100);
-
-    // console.log('own text = ', this.text, 'input text =', this.idLogoText);
-    // console.log('idFontSelect', this.idFontSelect);
+    console.log('write text', this.context.font, 'dfdf', this.newfontFamily);
   }
-  // editLogo() {
-  //   this.logoService.editLogo(this.paramId, '2', '2').subscribe();
-  //   console.log('edit Done!!!', this.paramId );
-  // }
 
   changeImg() {
     switch (this.idImgSelect) {
@@ -147,7 +103,6 @@ export class LogoConvasComponent implements OnInit {
         console.log('default');
     }
     this.context.fill();
-    console.log('idImgSelect', this.idImgSelect);
   }
 
   onMouseUp(e) {
@@ -189,9 +144,11 @@ export class LogoConvasComponent implements OnInit {
     //   })
     //   .subscribe();
 
-        // edit
-    this.logoService.editLogo(this.paramId, this.img, this.idLogoText).subscribe();
-    console.log('edit Done!!!', this.idLogoText, this.img, " = img" );
+    // edit
+    this.logoService
+      .editLogo(this.paramId, this.img, this.idLogoText)
+      .subscribe();
+    console.log('edit Done!!!', this.idLogoText, this.img, ' = img');
   }
 
   showLogos() {
@@ -203,7 +160,19 @@ export class LogoConvasComponent implements OnInit {
   }
 
   saveAndGoHome() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/logo']);
     console.log('go home');
+  }
+
+  addFontFamily(fontFamily) {
+    this.newfontFamily = fontFamily;
+    this.context.clearRect(0, 0, 150, 150);
+    this.context.beginPath();
+    if (this.idLogoText === undefined) {
+      this.idLogoText = '';
+    }
+    this.context.font = `30px ${fontFamily} `;
+    this.context.fillText(this.idLogoText, 50, 100);
+    console.log('object', fontFamily, 'this.context.font', this.context.font);
   }
 }
