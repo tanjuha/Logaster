@@ -13,7 +13,7 @@ export class FontFamilyService {
 
   getFontFamilyList(): Observable<FontFamily[]> {
     return this.http
-      .get<FontFamily[]>('https://logaster-df59c.firebaseio.com/fonts.json')
+      .get<FontFamily[]>(`https://logaster-df59c.firebaseio.com/fonts.json`)
       .pipe(
         map(res => {
           return Object.keys(res).map(key => {

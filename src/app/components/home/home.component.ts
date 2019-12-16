@@ -13,9 +13,11 @@ export class HomeComponent implements OnInit {
   constructor(private logos: LogosService) {}
 
   ngOnInit() {
+  setTimeout (() => {
     this.logos.showLogos().subscribe(res => {
       this.Logos = res;
       this.showSpinner = false;
     });
+  }, 1000);
   }
 }
