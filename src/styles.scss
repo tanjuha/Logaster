@@ -2,3 +2,7 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import "~@ng-select/ng-select/themes/material.theme.css";
 @import "~font-awesome/css/font-awesome.min.css";
+@import "./app/sared/variables.scss";
+body{
+  transition: $transition-slow;
+}

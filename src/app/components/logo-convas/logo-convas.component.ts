@@ -55,12 +55,11 @@ export class LogoConvasComponent implements OnInit {
 
       this.image.onload = () => {
         setTimeout(() => {
-          this.context.drawImage(this.image, 150, 0);
+          this.context.drawImage(this.image, 0, 0);
         }, 1000);
       };
       this.context.fillStyle = `${this.fillStyle}`;
       this.context.font = `30px ${this.fontFamily}`;
-      this.context.fillText(this.textLogo, 50, 100);
     }, 1000);
 
     this.route.params.subscribe(param => {
@@ -72,36 +71,39 @@ export class LogoConvasComponent implements OnInit {
   }
 
   addText(text) {
-    this.context.clearRect(0, 0, 150, 150);
+    this.context.clearRect(0, 120, 300, 80); // x, y, width, height
     this.context.beginPath();
     if (text === undefined) {
       text = '';
     }
     this.context.font = `30px ${this.fontFamily} `;
-    this.context.fillText(text, 50, 100);
+    this.context.fillText(text, 30, 170); // text, x, y [, maxWidth]
     this.textLogo = text;
   }
 
   changeImg(idImgSelect) {
     switch (idImgSelect) {
       case 'triagle':
-        this.context.moveTo(100, 20);
-        this.context.lineTo(150, 75);
-        this.context.lineTo(50, 75);
+        this.context.clearRect(0, 0, 300, 120);
+        this.context.beginPath();
+        this.context.moveTo(150, 30);
+        this.context.lineTo(40, 115);
+        this.context.lineTo(260, 115);
         break;
       case 'square':
-        this.context.rect(20, 20, 70, 70);
-        this.context.stroke();
+        this.context.clearRect(0, 0, 300, 120);
+        this.context.beginPath();
+        this.context.rect(40, 40, 220, 75);
         break;
       case 'circle':
-        this.context.clearRect(151, 0, 150, 150);
-        this.context.arc(95, 50, 40, 0, 2 * Math.PI);
-        this.context.stroke();
+        this.context.clearRect(0, 0, 300, 120);
+        this.context.beginPath();
+        this.context.arc(150, 65, 50, 0, 2 * Math.PI); // x, y, radius, startAngle, endAngle, anticlockwise
         break;
       default:
-        this.context.clearRect(151, 0, 150, 150);
-        this.context.arc(95, 50, 40, 0, 2 * Math.PI);
-        this.context.stroke();
+        this.context.clearRect(0, 0, 300, 120);
+        this.context.beginPath();
+        this.context.arc(150, 65, 50, 0, 2 * Math.PI);
     }
     this.context.fill();
   }
@@ -131,12 +133,12 @@ export class LogoConvasComponent implements OnInit {
 
   addFontFamily(fontFamily) {
     this.fontFamily = fontFamily;
-    this.context.clearRect(0, 0, 150, 150);
+    this.context.clearRect(0, 120, 300, 80);
     this.context.beginPath();
     if (this.textLogo === undefined) {
       this.textLogo = this.fontFamily;
     }
     this.context.font = `30px ${fontFamily} `;
-    this.context.fillText(this.textLogo, 50, 100);
+    this.context.fillText(this.textLogo, 30, 170);
   }
 }
