@@ -35,7 +35,7 @@ export class FontsFamilyComponent implements OnInit {
     }, 1000);
   }
 
-  changeFontFamily() {
-    this.addFontFamily.emit(`${this.idFontFamily}`);
+  changeFontFamily(idFontFamily) {
+    this.addFontFamily.emit(`${idFontFamily}`);
   }
 }

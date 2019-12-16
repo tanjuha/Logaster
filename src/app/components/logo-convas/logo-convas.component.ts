@@ -5,10 +5,7 @@ import {
   ElementRef,
   Output
 } from '@angular/core';
-import {
-  LogosService,
-  ImgTemplate,
-} from 'src/app/services/app-logos.service';
+import { LogosService, ImgTemplate } from 'src/app/services/app-logos.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -70,17 +67,6 @@ export class LogoConvasComponent implements OnInit {
     });
   }
 
-  addText(text) {
-    this.context.clearRect(0, 120, 300, 80); // x, y, width, height
-    this.context.beginPath();
-    if (text === undefined) {
-      text = '';
-    }
-    this.context.font = `30px ${this.fontFamily} `;
-    this.context.fillText(text, 30, 170); // text, x, y [, maxWidth]
-    this.textLogo = text;
-  }
-
   changeImg(idImgSelect) {
     switch (idImgSelect) {
       case 'triagle':
@@ -130,6 +116,16 @@ export class LogoConvasComponent implements OnInit {
       .subscribe();
     this.router.navigate(['/logo']);
   }
+  addText(text) {
+    this.context.clearRect(0, 120, 300, 80); // x, y, width, height
+    this.context.beginPath();
+    if (text === undefined) {
+      text = 'Defolt text';
+    }
+    this.context.font = `30px ${this.fontFamily} `;
+    this.context.fillText(text, 30, 170); // text, x, y [, maxWidth]
+    this.textLogo = text;
+  }
 
   addFontFamily(fontFamily) {
     this.fontFamily = fontFamily;
@@ -138,7 +134,7 @@ export class LogoConvasComponent implements OnInit {
     if (this.textLogo === undefined) {
       this.textLogo = this.fontFamily;
     }
-    this.context.font = `30px ${fontFamily} `;
+    this.context.font = `30px ${this.fontFamily} `;
     this.context.fillText(this.textLogo, 30, 170);
   }
 }
