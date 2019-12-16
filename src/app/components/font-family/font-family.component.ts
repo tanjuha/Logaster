@@ -35,13 +35,6 @@ export class FontsFamilyComponent implements OnInit {
     }, 1000);
   }
 
-  getFontFamilyList() {
-    this.fontsService.getFontFamilyList().subscribe(response => {
-      this.fontFamilyList = response;
-      return response;
-    });
-  }
-
   changeFontFamily() {
     this.addFontFamily.emit(`${this.idFontFamily}`);
   }
