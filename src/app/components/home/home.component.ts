@@ -9,10 +9,17 @@ import { LogosService, Logo } from 'src/app/services/app-logos.service';
 export class HomeComponent implements OnInit {
   Logos: Logo[] = [];
   showSpinner = true;
+  tests: any;
 
   constructor(private logos: LogosService) {}
 
   ngOnInit() {
+
+    this.logos.getTest()
+    .subscribe(res => {
+      console.log(res);
+    });
+
   setTimeout (() => {
     this.logos.showLogos().subscribe(res => {
       this.Logos = res;
