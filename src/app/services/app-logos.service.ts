@@ -28,17 +28,7 @@ export class LogosService {
     );
   }
 
-  getImgTemplate() {
-    return this.http.get(`https://logaster-df59c.firebaseio.com/img-template.json`)
-    .pipe(
-      map(res => {
-        return Object.keys(res).map(key => {
-          return { ...res[key] };
-        });
-      })
-    );
-  }
-
+ 
   editLogo(id: string, imgLogo: string, text: string, fillStyle: string, fontFamily: string ) {
     return this.http.put(`https://logaster-df59c.firebaseio.com/logos/${id}.json`, {
       imgLogo,
@@ -55,5 +45,10 @@ export class LogosService {
   getLogoById(id: string) {
     return this.http.get(`${environment.url}/logos/${id}`);
   }
+
+  getShapes() {
+    return this.http.get<Logo>(`${environment.url}/shapes`);
+  }
+
 
 }

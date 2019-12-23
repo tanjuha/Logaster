@@ -23,7 +23,7 @@ export class LogoConvasComponent implements OnInit {
   context;
   idImgSelect: string;
   arrayFonts = [];
-  imgTenplate: ImgTemplate[] = [];
+  imgShapes: any; // ImgTemplate[] = [];
   img: string;
   image = new Image();
   logo: any;
@@ -42,8 +42,8 @@ export class LogoConvasComponent implements OnInit {
         this.paramId = param.id;
       });
     });
-    this.logoService.getImgTemplate().subscribe(res => {
-      this.imgTenplate = res;
+    this.logoService.getShapes().subscribe(res => {
+      this.imgShapes = res;
     });
     this.convas = this.idLogo.nativeElement;
     this.context = <HTMLCanvasElement>this.convas.getContext('2d');

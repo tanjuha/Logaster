@@ -10,9 +10,9 @@
               (addFontFamily)="addFontFamily($event)"
             ></app-font-family>
           </div>
-          <div class="mt-2 col-6">
+          <div class="mt-2 col-6" *ngIf='imgShapes'>
             <ng-select
-              [items]="imgTenplate"
+              [items]="imgShapes"
               bindLabel="title"
               bindValue="title"
               (change)="changeImg(idImgSelect)"
