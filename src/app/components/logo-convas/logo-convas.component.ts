@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { LogosService, ImgTemplate } from 'src/app/services/app-logos.service';
 import { Router, ActivatedRoute } from '@angular/router';
-// import * as WebFont from 'webfontloader';
 
 @Component({
   selector: 'app-logo-convas',
@@ -131,11 +130,3 @@ export class LogoConvasComponent implements OnInit {
     this.context.fillText(this.logo.text, 30, 170);
   }
 }
-
-// WebFont.load({
-//   google: {
-//     families: ['Droid Sans', 'Droid Serif', 'Lato', 'Ma Shan Zheng' ],
-//   },
-//   active: () => console.log('active families'),
-//   inactive: () => console.log('inactive families')
-// });
