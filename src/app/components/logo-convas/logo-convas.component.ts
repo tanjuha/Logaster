@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { LogosService, ImgTemplate } from 'src/app/services/app-logos.service';
 import { Router, ActivatedRoute } from '@angular/router';
+// import * as WebFont from 'webfontloader';
 
 @Component({
   selector: 'app-logo-convas',
@@ -24,12 +25,9 @@ export class LogoConvasComponent implements OnInit {
   idImgSelect: string;
   arrayFonts = [];
   imgTenplate: ImgTemplate[] = [];
-  fillStyle: string;
-  fontFamily: string;
   img: string;
   image = new Image();
-  textLogo: string;
-  logos = [];
+  logo: any;
   paramId: string;
 
   constructor(
@@ -39,32 +37,27 @@ export class LogoConvasComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.route.params.subscribe(param => {
+      this.logoService.getLogoById(param.id).subscribe(res => {
+        this.logo = res;
+        this.paramId = param.id;
+      });
+    });
     this.logoService.getImgTemplate().subscribe(res => {
       this.imgTenplate = res;
     });
+    this.convas = this.idLogo.nativeElement;
+    this.context = <HTMLCanvasElement>this.convas.getContext('2d');
     setTimeout(() => {
-      this.image.src = `${this.logos[0].imgLogo}`;
-      this.fontFamily = `${this.logos[0].fontFamily}`;
-      this.textLogo = `${this.logos[0].text}`;
-      this.fillStyle = `${this.logos[0].fillStyle}`;
-      this.convas = this.idLogo.nativeElement;
-      this.context = <HTMLCanvasElement>this.convas.getContext('2d');
-
+      this.image.src = `${this.logo.image}`;
       this.image.onload = () => {
         setTimeout(() => {
           this.context.drawImage(this.image, 0, 0);
         }, 1000);
       };
-      this.context.fillStyle = `${this.fillStyle}`;
-      this.context.font = `30px ${this.fontFamily}`;
+      this.context.fillStyle = `${this.logo.fillStyle}`;
+      this.context.font = `30px ${this.logo.fontFamily}`;
     }, 1000);
-
-    this.route.params.subscribe(param => {
-      this.logoService.getById(param.id).subscribe(res => {
-        this.logos = res;
-        this.paramId = param.id;
-      });
-    });
   }
 
   changeImg(idImgSelect) {
@@ -109,9 +102,9 @@ export class LogoConvasComponent implements OnInit {
       .editLogo(
         this.paramId,
         this.img,
-        this.textLogo,
-        this.fillStyle,
-        this.fontFamily
+        this.logo.text,
+        this.logo.fillStyle,
+        this.logo.fontFamily
       )
       .subscribe();
     this.router.navigate(['/logo']);
@@ -122,19 +115,27 @@ export class LogoConvasComponent implements OnInit {
     if (text === undefined) {
       text = 'Defolt text';
     }
-    this.context.font = `30px ${this.fontFamily} `;
+    this.context.font = `30px ${this.logo.fontFamily} `;
     this.context.fillText(text, 30, 170); // text, x, y [, maxWidth]
-    this.textLogo = text;
+    this.logo.text = text;
   }
 
   addFontFamily(fontFamily) {
-    this.fontFamily = fontFamily;
+    this.logo.fontFamily = fontFamily;
     this.context.clearRect(0, 120, 300, 80);
     this.context.beginPath();
-    if (this.textLogo === undefined) {
-      this.textLogo = this.fontFamily;
+    if (this.logo.text === undefined) {
+      this.logo.text = this.logo.fontFamily;
     }
-    this.context.font = `30px ${this.fontFamily} `;
-    this.context.fillText(this.textLogo, 30, 170);
+    this.context.font = `30px ${this.logo.fontFamily} `;
+    this.context.fillText(this.logo.text, 30, 170);
   }
 }
+
+// WebFont.load({
+//   google: {
+//     families: ['Droid Sans', 'Droid Serif', 'Lato', 'Ma Shan Zheng' ],
+//   },
+//   active: () => console.log('active families'),
+//   inactive: () => console.log('inactive families')
+// });

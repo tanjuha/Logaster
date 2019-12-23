@@ -1,13 +1,16 @@
-<h1 style="font-family: Ma Shan Zheng;">Test</h1>
 <app-spinner *ngIf="showSpinner"></app-spinner>
 <div class="container">
   <div class="row justify-content-center">
     <div
       class="card-logo col-sm-6 col-md-5 col-lg-4"
-      *ngFor="let logo of Logos"
+      *ngFor="let logo of logos"
     >
       <div class="card-item-logo">
-        <img class="card-img-logo" *ngIf='logo.imgLogo' [src]="logo.imgLogo" alt="logo.text" />
+        <img
+          class="card-img-logo"
+          [src]="logo.image"
+          alt="logo.text"
+        />
         <a class="card-link-logo" [routerLink]="['/logo/', logo.id]">
           <fa class="edit-icon" name="edit" title="edit logo"></fa
         ></a>

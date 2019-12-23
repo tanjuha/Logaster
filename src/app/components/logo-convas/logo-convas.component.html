@@ -5,8 +5,7 @@
       <div class="logo edit-lodo">
         <div class="d-flex">
           <div class="w-50">
-            <app-font-family
-              *ngFor="let logo of logos"
+            <app-font-family *ngIf = 'logo'
               [fontFamily]="logo.fontFamily"
               (addFontFamily)="addFontFamily($event)"
             ></app-font-family>
@@ -26,8 +25,7 @@
             </ng-select>
           </div>
         </div>
-        <app-text
-          *ngFor="let logo of logos"
+        <app-text *ngIf = 'logo'
           [text]="logo.text"
           (addText)="addText($event)"
         ></app-text>
@@ -65,8 +63,8 @@
     <div class="col-sm-6 col-md-4">
       <h3 class="edit-title">Live logo</h3>
       <div class="logo">
-        <div class="live-logo" *ngFor="let logo of logos">
-          <img *ngIf="logo.imgLogo" [src]="logo.imgLogo" />
+        <div class="live-logo" *ngIf = 'logo'>
+          <img [src]="logo.image" />
         </div>
       </div>
     </div>
