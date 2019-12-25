@@ -28,7 +28,6 @@ export class LogosService {
     );
   }
 
- 
   editLogo(id: string, imgLogo: string, text: string, fillStyle: string, fontFamily: string ) {
     return this.http.put(`https://logaster-df59c.firebaseio.com/logos/${id}.json`, {
       imgLogo,

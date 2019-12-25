@@ -6,14 +6,23 @@
       *ngFor="let logo of logos"
     >
       <div class="card-item-logo">
-        <img
-          class="card-img-logo"
-          [src]="logo.image"
-          alt="logo.text"
-        />
-        <a class="card-link-logo" [routerLink]="['/logo/', logo.id]">
+        <img class="card-img-logo" [src]="logo.image" alt="logo.text" />
+         <a class="card-link-logo" [routerLink]="['/logo/', logo.id]">
           <fa class="edit-icon" name="edit" title="edit logo"></fa
         ></a>
+        <div>
+          <fa
+            (click)="editLogo($event, logo)"
+            class="edit-icon"
+            name="edit"
+            title="edit logo"
+          ></fa>
+        </div>
+        <div *ngIf="editState && editItem.id == logo.id">
+          <div>
+            <input type="text" [value]="logo.text">
+          </div>
+        </div>
       </div>
     </div>
   </div>

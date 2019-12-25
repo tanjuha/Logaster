@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { LogoConvasComponent } from './components/logo-convas/logo-convas.component';
 import { HomeComponent } from './components/home/home.component';
 import { FontsFamilyComponent } from './components/font-family/font-family.component';
@@ -12,6 +12,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { TextComponent } from './components/text/text.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { CreateLogoComponent } from './components/create-logo/create-logo.component';
+import { UpdateLogoComponent } from './components/update-logo/update-logo.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +25,9 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     HomeComponent,
     FontsFamilyComponent,
     TextComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    CreateLogoComponent,
+    UpdateLogoComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +35,10 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     HttpClientModule,
     FormsModule,
     NgSelectModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

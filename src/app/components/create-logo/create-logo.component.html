@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="col-6">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" formControlName="text">
+      
+        <select formControlName="shape">
+          <option value="circle">circle</option>
+          <option value="square">square</option>
+          <option value="triagle">triagle</option>
+        </select>
+        <select formControlName="fontFamily">
+          <option value="lato">Lato</option>
+          <option value="lato">Lato</option>
+          <option value="lato">Lato</option>
+        </select>
+        <br/>
+        <canvas #idCanvas width="300" height="200"></canvas>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>

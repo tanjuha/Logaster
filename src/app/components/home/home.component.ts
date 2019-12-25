@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LogosService, Logo } from 'src/app/services/app-logos.service';
-
+import { map } from 'rxjs/operators';
+import { LogoService } from 'src/app/services/logo.service';
 
 @Component({
   selector: 'app-home',
@@ -8,15 +8,35 @@ import { LogosService, Logo } from 'src/app/services/app-logos.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  logos: any; // Logo[] = [];
-  showSpinner = true;
 
-  constructor(private logosService: LogosService) {}
+  logos: any;
+  showSpinner = true;
+  // update
+  editState = false;
+  editItem: any;
+
+
+
+  constructor(private logoService: LogoService) {}
 
   ngOnInit() {
-    this.logosService.getLogos().subscribe(res => {
-      this.logos = res;
-      this.showSpinner = false;
-    });
+    this.logoService
+      .getLogoList()
+      .snapshotChanges()
+      .pipe(
+        map(logos =>
+          logos.map(logo => ({ id: logo.payload.key, ...logo.payload.val() }))
+        )
+      )
+      .subscribe(res => {
+        this.logos = res;
+        this.showSpinner = false;
+      });
+  }
+
+  editLogo(event, logo) {
+    this.editState = true;
+    this.editItem = logo;
+    console.log('editItem', this.editItem );
   }
 }

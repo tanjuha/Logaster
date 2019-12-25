@@ -4,7 +4,16 @@
 
 export const environment = {
   production: false,
-  url: 'http://localhost:3000'
+  url: 'http://localhost:3000',
+  firebase: {
+    apiKey: 'AIzaSyByYnwawQIJq-PJXPX8BJfEzTsai8ppdWo',
+    authDomain: 'logaster-df59c.firebaseapp.com',
+    databaseURL: 'https://logaster-df59c.firebaseio.com',
+    projectId: 'logaster-df59c',
+    storageBucket: 'logaster-df59c.appspot.com',
+    messagingSenderId: '491738673890',
+    appId: '1:491738673890:web:865bcbc0e78e68c497a4bb'
+  }
 };
 
 /*
