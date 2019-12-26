@@ -17,6 +17,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { CreateLogoComponent } from './components/create-logo/create-logo.component';
 import { UpdateLogoComponent } from './components/update-logo/update-logo.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UpdateLogoComponent } from './components/update-logo/update-logo.compon
     TextComponent,
     SpinnerComponent,
     CreateLogoComponent,
-    UpdateLogoComponent
+    UpdateLogoComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
