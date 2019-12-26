@@ -11,11 +11,6 @@ export class HomeComponent implements OnInit {
 
   logos: any;
   showSpinner = true;
-  // update
-  editState = false;
-  editItem: any;
-
-
 
   constructor(private logoService: LogoService) {}
 
@@ -32,11 +27,5 @@ export class HomeComponent implements OnInit {
         this.logos = res;
         this.showSpinner = false;
       });
-  }
-
-  editLogo(event, logo) {
-    this.editState = true;
-    this.editItem = logo;
-    console.log('editItem', this.editItem );
   }
 }
