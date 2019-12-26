@@ -3,9 +3,7 @@
     [items]="fontFamilyList"
     bindLabel="name"
     bindValue="name"
-    (change)="changeFontFamily(idFontFamily)"
     placeholder="Select font-family"
-    [(ngModel)]="idFontFamily"
   >
     <ng-template ng-label-tmp let-item="item">
       {{ item.name }}

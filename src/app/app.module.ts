@@ -9,7 +9,6 @@ import { LogoConvasComponent } from './components/logo-convas/logo-convas.compon
 import { HomeComponent } from './components/home/home.component';
 import { FontsFamilyComponent } from './components/font-family/font-family.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { TextComponent } from './components/text/text.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { environment } from '../environments/environment';
@@ -25,7 +24,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     LogoConvasComponent,
     HomeComponent,
     FontsFamilyComponent,
-    TextComponent,
     SpinnerComponent,
     CreateLogoComponent,
     UpdateLogoComponent,

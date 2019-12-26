@@ -5,10 +5,6 @@
       <div class="logo edit-lodo">
         <div class="d-flex">
           <div class="w-50">
-            <app-font-family *ngIf = 'logo'
-              [fontFamily]="logo.fontFamily"
-              (addFontFamily)="addFontFamily($event)"
-            ></app-font-family>
           </div>
           <div class="mt-2 col-6" *ngIf='imgShapes'>
             <ng-select
@@ -25,10 +21,6 @@
             </ng-select>
           </div>
         </div>
-        <app-text *ngIf = 'logo'
-          [text]="logo.text"
-          (addText)="addText($event)"
-        ></app-text>
         <div class="canvas-logo">
           <canvas #idLogo width="300" height="200"></canvas>
         </div>

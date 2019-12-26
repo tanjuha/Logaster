@@ -5,7 +5,6 @@ import {
   ElementRef,
   Output
 } from '@angular/core';
-import { LogosService, ImgTemplate } from 'src/app/services/app-logos.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -30,21 +29,11 @@ export class LogoConvasComponent implements OnInit {
   paramId: string;
 
   constructor(
-    private logoService: LogosService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(param => {
-      this.logoService.getLogoById(param.id).subscribe(res => {
-        this.logo = res;
-        this.paramId = param.id;
-      });
-    });
-    this.logoService.getShapes().subscribe(res => {
-      this.imgShapes = res;
-    });
     this.convas = this.idLogo.nativeElement;
     this.context = <HTMLCanvasElement>this.convas.getContext('2d');
     setTimeout(() => {
@@ -55,7 +44,7 @@ export class LogoConvasComponent implements OnInit {
         }, 1000);
       };
       this.context.fillStyle = `${this.logo.fillStyle}`;
-      this.context.font = `30px ${this.logo.fontFamily}`;
+      this.context.font = `30px Lato`;
     }, 1000);
   }
 
@@ -95,38 +84,33 @@ export class LogoConvasComponent implements OnInit {
     this.img = this.convas.toDataURL('image/jpg');
   }
 
-  saveAndGoHome() {
-    this.img = this.convas.toDataURL('image/jpg');
-    this.logoService
-      .editLogo(
-        this.paramId,
-        this.img,
-        this.logo.text,
-        this.logo.fillStyle,
-        this.logo.fontFamily
-      )
-      .subscribe();
-    this.router.navigate(['/logo']);
-  }
+  // saveAndGoHome() {
+  //   this.img = this.convas.toDataURL('image/jpg');
+  //   this.logoService
+  //     .editLogo(
+  //       this.paramId,
+  //       this.img,
+  //       this.logo.text,
+  //       this.logo.fillStyle
+  //     )
+  //     .subscribe();
+  //   this.router.navigate(['/logo']);
+  // }
   addText(text) {
     this.context.clearRect(0, 120, 300, 80); // x, y, width, height
     this.context.beginPath();
     if (text === undefined) {
       text = 'Defolt text';
     }
-    this.context.font = `30px ${this.logo.fontFamily} `;
+    this.context.font = `30px Lato`;
     this.context.fillText(text, 30, 170); // text, x, y [, maxWidth]
     this.logo.text = text;
   }
 
   addFontFamily(fontFamily) {
-    this.logo.fontFamily = fontFamily;
     this.context.clearRect(0, 120, 300, 80);
     this.context.beginPath();
-    if (this.logo.text === undefined) {
-      this.logo.text = this.logo.fontFamily;
-    }
-    this.context.font = `30px ${this.logo.fontFamily} `;
+    this.context.font = `30px Loto`;
     this.context.fillText(this.logo.text, 30, 170);
   }
 }

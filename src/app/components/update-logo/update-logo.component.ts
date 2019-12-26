@@ -8,7 +8,9 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { LogoService } from 'src/app/services/logo.service';
 import { map } from 'rxjs/operators';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormControlName } from '@angular/forms';
+import { FontFamilyService } from 'src/app/services/font-family.service';
+import { ShapeService } from 'src/app/services/shape.service';
 
 @Component({
   selector: 'app-update-logo',
@@ -29,11 +31,16 @@ export class UpdateLogoComponent implements OnInit, AfterViewChecked {
   imageLogo;
   shapeLogo;
   image = new Image();
+  fontFamilyList;
+  arrayFontFamily = [];
+  shapes;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private logoService: LogoService
+    private logoService: LogoService,
+    private fontFamilyService: FontFamilyService,
+    private shapeService: ShapeService
   ) {}
 
   ngAfterViewChecked() {
@@ -42,6 +49,37 @@ export class UpdateLogoComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
+    this.shapeService.getShaps()
+    .snapshotChanges()
+    .pipe(
+      map(shapes => {
+        return shapes.map(s => {
+          return {
+              ...s.payload.val()
+          };
+        });
+      })
+    )
+    .subscribe(res => {
+      this.shapes = res;
+    });
+
+    this.fontFamilyService.getFontFamilyList()
+    .snapshotChanges()
+    .pipe(
+      map(fontFamily => {
+        return fontFamily.map(f => {
+          return {
+              name: f.payload.val()
+          };
+        });
+      })
+    )
+    .subscribe(res => {
+      this.fontFamilyList = res;
+      this.getGenerateFontFamilyList();
+    });
+
     this.route.params.subscribe(param => {
       this.logoService
         .getLogoById(param.id)
@@ -61,6 +99,8 @@ export class UpdateLogoComponent implements OnInit, AfterViewChecked {
 
     this.canvas = this.idCanvas.nativeElement;
     this.context = <HTMLCanvasElement>this.canvas.getContext('2d');
+    this.context.fillStyle = 'red';
+    this.context.font = `30px Lato`;
 
     this.form = new FormGroup({
       text: new FormControl(''),
@@ -120,6 +160,16 @@ export class UpdateLogoComponent implements OnInit, AfterViewChecked {
 
   submit() {
     this.imageLogo = this.canvas.toDataURL('image/jpg');
-    this.updateLogo();
+    // this.updateLogo();
+    console.log(this.form.value);
+  }
+
+  getGenerateFontFamilyList() {
+    if (this.fontFamilyList.length !== 0) {
+      for (let i = 0; i < this.fontFamilyList.length; i++) {
+        this.arrayFontFamily.push(this.fontFamilyList[i].name);
+      }
+      this.fontFamilyService.generateFontFamilyList(this.arrayFontFamily);
+    }
   }
 }

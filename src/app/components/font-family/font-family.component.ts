@@ -1,41 +1,45 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import {
-  FontFamily,
-  FontFamilyService
-} from 'src/app/services/app-font-family.service';
+import { Component, OnInit } from '@angular/core';
+import { FontFamilyService } from 'src/app/services/font-family.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-font-family',
   templateUrl: './font-family.component.html'
 })
+
 export class FontsFamilyComponent implements OnInit {
-  @Input() fontFamily;
-
-  @Output() addFontFamily: EventEmitter<string> = new EventEmitter<string>();
-
-  fontFamilyList: FontFamily[] = [];
+  fontFamilyList;
   arrayFontFamily = [];
-  idFontFamily: string;
 
-  constructor(private fontsService: FontFamilyService) {}
+  constructor(private fontFamilyService: FontFamilyService) {}
 
   ngOnInit() {
-    this.idFontFamily = this.fontFamily;
-    this.fontsService.getFontFamilyList().subscribe(response => {
-      this.fontFamilyList = response;
+    this.fontFamilyService.getFontFamilyList()
+    .snapshotChanges()
+    .pipe(
+      map(fontFamily => {
+        return fontFamily.map(f => {
+          return {
+              name: f.payload.val()
+          };
+        });
+      })
+    )
+    .subscribe(res => {
+      this.fontFamilyList = res;
+      this.getGenerateFontFamilyList();
     });
 
-    setTimeout(() => {
-      if (this.fontFamilyList.length !== 0) {
-        for (let i = 0; i < this.fontFamilyList.length; i++) {
-          this.arrayFontFamily.push(this.fontFamilyList[i].name);
-        }
-        this.fontsService.generateFontFamilyList(this.arrayFontFamily);
-      }
-    }, 1000);
   }
 
-  changeFontFamily(idFontFamily) {
-    this.addFontFamily.emit(`${idFontFamily}`);
+  getGenerateFontFamilyList() {
+    console.log('getGenerateFontFamilyList');
+    if (this.fontFamilyList.length !== 0) {
+      for (let i = 0; i < this.fontFamilyList.length; i++) {
+        this.arrayFontFamily.push(this.fontFamilyList[i].name);
+      }
+      this.fontFamilyService.generateFontFamilyList(this.arrayFontFamily);
+    }
   }
+
 }
