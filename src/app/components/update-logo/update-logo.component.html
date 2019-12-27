@@ -1,12 +1,9 @@
-<div class="container" >
-  <div class="col-6">
+<div class="container">
+  <div class="col-sm-12 col-md-12 col-lg-6 logo-container">
     <form [formGroup]="form" (ngSubmit)="submit()">
       <div class="form-group">
-        <label for="text">Text logo</label>
-        <input type="text" class="form-control" id="text" placeholder="Enter text logo" formControlName="text" [(ngModel)]="logoInfo.text" >
-        <label >Logo setings</label>
         <div class="d-flex">
-          <div class=" col-6">
+          <div class="w-50 pr-3">
             <ng-select
               formControlName="shape"
               [items]="shapes"
@@ -20,9 +17,9 @@
               </ng-template>
             </ng-select>
           </div>
-          <div class=" col-6">
+          <div class="w-50 pl-3">
             <ng-select
-              formControlName ="fontFamily"
+              formControlName="fontFamily"
               [items]="fontFamilyList"
               bindLabel="name"
               bindValue="name"
@@ -35,16 +32,24 @@
             </ng-select>
           </div>
         </div>
-        <br/>
-        <canvas #idCanvas width="300" height="200"></canvas>
-        <img
-        class="demo-logo"
-        #idimg
-        [src]="logoInfo.image"
-        alt="demo logo"
-      />
+        <input
+          type="text"
+          class="form-control"
+          id="text"
+          placeholder="Enter text logo"
+          formControlName="text"
+          [(ngModel)]="logoInfo.text"
+        />
+        <div class="text-center">
+          <canvas #idCanvas width="300" height="200"></canvas>
+        </div>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-primary" (click)="cancel()">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
     </form>
   </div>
 </div>

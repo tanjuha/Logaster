@@ -177,6 +177,10 @@ export class UpdateLogoComponent implements OnInit, AfterViewChecked {
     this.updateLogo();
   }
 
+  cancel() {
+    this.router.navigate(['/logo']);
+  }
+
   getGenerateFontFamilyList() {
     if (this.fontFamilyList.length !== 0) {
       for (let i = 0; i < this.fontFamilyList.length; i++) {
