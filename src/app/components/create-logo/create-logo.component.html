@@ -1,24 +1,52 @@
 <div class="container">
-  <div class="col-6">
+  <div class="col-sm-12 col-md-12 col-lg-6 logo-container">
     <form [formGroup]="form" (ngSubmit)="submit()">
       <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" formControlName="text">
-      
-        <select formControlName="shape">
-          <option value="circle">circle</option>
-          <option value="square">square</option>
-          <option value="triagle">triagle</option>
-        </select>
-        <select formControlName="fontFamily">
-          <option value="lato">Lato</option>
-          <option value="lato">Lato</option>
-          <option value="lato">Lato</option>
-        </select>
-        <br/>
-        <canvas #idCanvas width="300" height="200"></canvas>
+        <div class="d-flex">
+          <div class="w-50 pr-3">
+            <ng-select
+              formControlName="shape"
+              [items]="shapes"
+              bindLabel="title"
+              bindValue="title"
+              placeholder="Geometric figure..."
+            >
+              <ng-template ng-label-tmp let-item="item">
+                {{ item.title }}
+              </ng-template>
+            </ng-select>
+          </div>
+          <div class="w-50 pl-3">
+            <ng-select
+              formControlName="fontFamily"
+              [items]="fontFamilyList"
+              bindLabel="name"
+              bindValue="name"
+              placeholder="Select font-family"
+            >
+              <ng-template ng-label-tmp let-item="item">
+                {{ item.name }}
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+        <input
+          type="text"
+          class="form-control"
+          id="text"
+          placeholder="Enter text logo"
+          formControlName="text"
+        />
+        <div class="text-center">
+          <canvas #idCanvas width="300" height="200"></canvas>
+        </div>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-primary" (click)="cancel()">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
     </form>
   </div>
 </div>

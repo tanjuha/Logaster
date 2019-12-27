@@ -31,8 +31,7 @@ export class FontFamilyService {
       google: {
         families: array
       },
-      active: () => console.log('active families'),
-      inactive: () => console.log('inactive families')
+       inactive: () => console.error('Something wrong!')
     });
   }
 

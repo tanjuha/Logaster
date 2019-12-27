@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { LogoService } from 'src/app/services/logo.service';
 import { map } from 'rxjs/operators';
-import { FormGroup, FormControl, FormControlName } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { FontFamilyService } from 'src/app/services/font-family.service';
 import { ShapeService } from 'src/app/services/shape.service';
 
@@ -103,7 +103,7 @@ export class UpdateLogoComponent implements OnInit, AfterViewChecked {
 
     this.canvas = this.idCanvas.nativeElement;
     this.context = <HTMLCanvasElement>this.canvas.getContext('2d');
-    this.context.fillStyle = 'red';
+    this.context.fillStyle = '#000000';
     this.context.font = `30px Lato`;
 
     this.form = new FormGroup({
