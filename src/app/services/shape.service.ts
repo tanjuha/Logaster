@@ -9,7 +9,7 @@ export interface Shape {
   providedIn: 'root'
 })
 export class ShapeService {
-  private dbShape = '/img-template';
+  private dbShape = '/shapes';
 
   shapeRef: AngularFireList<Shape> = null;
 

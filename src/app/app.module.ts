@@ -5,9 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { LogoConvasComponent } from './components/logo-convas/logo-convas.component';
 import { HomeComponent } from './components/home/home.component';
-import { FontsFamilyComponent } from './components/font-family/font-family.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SpinnerComponent } from './components/spinner/spinner.component';
@@ -21,9 +19,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LogoConvasComponent,
     HomeComponent,
-    FontsFamilyComponent,
     SpinnerComponent,
     CreateLogoComponent,
     UpdateLogoComponent,

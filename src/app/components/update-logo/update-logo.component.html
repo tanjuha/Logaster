@@ -3,7 +3,7 @@
     <form [formGroup]="form" (ngSubmit)="submit()">
       <div class="form-group">
         <label for="text">Text logo</label>
-        <input type="text" class="form-control" id="text" placeholder="Enter text logo" formControlName="text" [value]="logoInfo.text" >
+        <input type="text" class="form-control" id="text" placeholder="Enter text logo" formControlName="text" [(ngModel)]="logoInfo.text" >
         <label >Logo setings</label>
         <div class="d-flex">
           <div class=" col-6">
@@ -13,6 +13,7 @@
               bindLabel="title"
               bindValue="title"
               placeholder="Geometric figure..."
+              [(ngModel)]="logoInfo.shape"
             >
               <ng-template ng-label-tmp let-item="item">
                 {{ item.title }}
@@ -26,6 +27,7 @@
               bindLabel="name"
               bindValue="name"
               placeholder="Select font-family"
+              [(ngModel)]="logoInfo.fontFamily"
             >
               <ng-template ng-label-tmp let-item="item">
                 {{ item.name }}

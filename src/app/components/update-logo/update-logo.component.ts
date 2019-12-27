@@ -24,12 +24,15 @@ export class UpdateLogoComponent implements OnInit, AfterViewChecked {
   form: FormGroup;
   logoInfo = {
     image: '',
-    text: ''
+    text: '',
+    shape: '',
+    fontFamily: ''
   };
   logoId: string;
   textLogo;
   imageLogo;
   shapeLogo;
+  fontFamilyLogo;
   image = new Image();
   fontFamilyList;
   arrayFontFamily = [];
@@ -46,6 +49,7 @@ export class UpdateLogoComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked() {
     this.onChangeText();
     this.onChangeShape();
+    this.onChangeFontFamily();
   }
 
   ngOnInit() {
@@ -70,7 +74,7 @@ export class UpdateLogoComponent implements OnInit, AfterViewChecked {
       map(fontFamily => {
         return fontFamily.map(f => {
           return {
-              name: f.payload.val()
+              ...f.payload.val()
           };
         });
       })
@@ -110,6 +114,7 @@ export class UpdateLogoComponent implements OnInit, AfterViewChecked {
 
     this.textLogo = this.form.get('text');
     this.shapeLogo = this.form.get('shape');
+    this.fontFamilyLogo = this.form.get('fontFamily');
   }
 
   getProperty(key, value) {
@@ -150,6 +155,15 @@ export class UpdateLogoComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  onChangeFontFamily() {
+    this.context.clearRect(0, 120, 300, 80);
+    this.context.beginPath();
+    if (this.textLogo.value) {
+      this.context.font = `30px ${this.fontFamilyLogo.value}`;
+      this.context.fillText(this.textLogo.value, 30, 170);
+    }
+  }
+
   updateLogo() {
     this.logoService.updateLogo(this.logoId, {
       image: this.imageLogo,
@@ -160,8 +174,7 @@ export class UpdateLogoComponent implements OnInit, AfterViewChecked {
 
   submit() {
     this.imageLogo = this.canvas.toDataURL('image/jpg');
-    // this.updateLogo();
-    console.log(this.form.value);
+    this.updateLogo();
   }
 
   getGenerateFontFamilyList() {
